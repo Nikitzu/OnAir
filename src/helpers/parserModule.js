@@ -3,14 +3,14 @@ import _ from 'lodash';
 // flattens an object (recursively!), similarly to Array#flatten
 // e.g. flatten({ a: { b: { c: "hello!" } } }); // => "hello!"
 export function flatten(object) {
-    var check = _.isPlainObject(object) && _.size(object) === 1;
+    let check = _.isPlainObject(object) && _.size(object) === 1;
     return check ? flatten(_.values(object)[0]) : object;
   }
   
 export function parse(xml) {
-  var data = {};
+  let data = {};
 
-  var isText = xml.nodeType === 3,
+  let isText = xml.nodeType === 3,
       isElement = xml.nodeType === 1,
       body = xml.textContent && xml.textContent.trim(),
       hasChildren = xml.children && xml.children.length,
@@ -28,7 +28,7 @@ export function parse(xml) {
   // if it's an element with attributes, add them to data.attributes
   if (isElement && hasAttributes) {
     data.attributes = _.reduce(xml.attributes, function(obj, name, id) {
-      var attr = xml.attributes.item(id);
+      let attr = xml.attributes.item(id);
       obj[attr.name] = attr.value;
       return obj;
     }, {});
@@ -36,7 +36,7 @@ export function parse(xml) {
 
   // recursively call #parse over children, adding results to data
   _.each(xml.children, function(child) {
-    var name = child.nodeName;
+    let name = child.nodeName;
 
     // if we've not come across a child with this nodeType, add it as an object
     // and return here

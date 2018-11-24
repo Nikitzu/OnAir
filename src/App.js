@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import requestUrl from './resources/OnAir_2018_NOV.xml'
-import * as parserModule from './helpers/parserModule'
+import requestUrl from './resources/OnAir_2018_NOV.xml';
+import * as parserModule from './helpers/parserModule';
+import * as XMLParser from 'react-xml-parser';
+
 class App extends Component {
   getXML = () => {
-    var oReq = new XMLHttpRequest();
+    let oReq = new XMLHttpRequest();
     oReq.onload = this.reqListener;
     oReq.open("get", requestUrl, true);
     oReq.send();
@@ -14,6 +16,7 @@ class App extends Component {
   reqListener(e) {
     let parser = new DOMParser();
     let xmlDoc = parser.parseFromString(this.responseText,"text/xml");
+    let xml = new XMLParser().parseFromString(this.responseText);
     let a = parserModule.parse(xmlDoc);
   }
 
