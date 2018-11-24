@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import requestUrl from './resources/OnAir_2018_NOV.xml';
-import * as parserModule from './helpers/parserModule';
 import * as XMLParser from 'react-xml-parser';
 import * as searchModule from './helpers/searchModule';
 
@@ -11,7 +10,7 @@ class App extends Component {
   set data(value) {
     this.privateData = value;
   }
-  get data() { 
+  get data() {
     return this.privateData;
   }
 
@@ -24,8 +23,6 @@ class App extends Component {
 
   findCities = () => {
     let test = searchModule.searchCities(this.data);
-    console.log('TEST')
-    console.dir(test);
   }
   
   reqListener = (e) => {
@@ -33,11 +30,6 @@ class App extends Component {
     let xmlDoc = parser.parseFromString(e.currentTarget.responseText,"text/xml");
     let xml = new XMLParser().parseFromString(e.currentTarget.responseText);
     this.data = xml;
-    console.log('XML1');
-    console.dir(xml);
-    let a = parserModule.parse(xmlDoc);
-    console.log('XML2');
-    console.dir(a);
   }
 
   render() {
