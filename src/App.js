@@ -4,20 +4,38 @@ import './App.css';
 import requestUrl from './resources/OnAir_2018_NOV.xml';
 import * as parserModule from './helpers/parserModule';
 import * as XMLParser from 'react-xml-parser';
+import * as searchModule from './helpers/searchModule';
 
 class App extends Component {
+  privateData;
+  set data(value) {
+    this.privateData = value;
+  }
+  get data() { 
+    return this.privateData;
+  }
+
   getXML = () => {
     let oReq = new XMLHttpRequest();
     oReq.onload = this.reqListener;
     oReq.open("get", requestUrl, true);
     oReq.send();
+  }  
+
+  findCities = () => {
+    searchModule.searchCities(this.data);
   }
   
-  reqListener(e) {
+  reqListener = (e) => {
     let parser = new DOMParser();
-    let xmlDoc = parser.parseFromString(this.responseText,"text/xml");
-    let xml = new XMLParser().parseFromString(this.responseText);
+    let xmlDoc = parser.parseFromString(e.currentTarget.responseText,"text/xml");
+    let xml = new XMLParser().parseFromString(e.currentTarget.responseText);
+    this.data = xml;
+    console.log('XML1');
+    console.dir(xml);
     let a = parserModule.parse(xmlDoc);
+    console.log('XML2');
+    console.dir(a);
   }
 
   render() {
@@ -30,6 +48,9 @@ class App extends Component {
           </p>
           <button onClick={this.getXML}>
             Load Data
+          </button>
+          <button onClick={this.findCities}>
+            Find Cities
           </button>
           <a
             className="App-link"
