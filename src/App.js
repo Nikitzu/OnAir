@@ -69,8 +69,8 @@ class App extends Component {
   mapImagesForGalery = () => {
     return this.state.citiesData.images.map((i) => {
       return {
-        original: i,
-        thumbnail: i
+        original: '/Users/nikitz/Documents/on-air-app/src/resources' + i,
+        thumbnail: '/Users/nikitz/Documents/on-air-app/src/resources' + i
       }
     })
   }
