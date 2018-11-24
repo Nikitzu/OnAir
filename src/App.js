@@ -23,7 +23,9 @@ class App extends Component {
   }  
 
   findCities = () => {
-    searchModule.searchCities(this.data);
+    let test = searchModule.searchCities(this.data);
+    console.log('TEST')
+    console.dir(test);
   }
   
   reqListener = (e) => {
