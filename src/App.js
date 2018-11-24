@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import requestUrl from './resources/OnAir_2018_NOV.xml';
 import * as XMLParser from 'react-xml-parser';
 import * as searchModule from './helpers/searchModule';
+
+import requestUrl from './resources/OnAir_2018_NOV.xml';
 
 class App extends Component {
   privateData;
@@ -23,11 +24,10 @@ class App extends Component {
 
   findCities = () => {
     let test = searchModule.searchCities(this.data);
+    console.dir(test);
   }
   
   reqListener = (e) => {
-    let parser = new DOMParser();
-    let xmlDoc = parser.parseFromString(e.currentTarget.responseText,"text/xml");
     let xml = new XMLParser().parseFromString(e.currentTarget.responseText);
     this.data = xml;
   }

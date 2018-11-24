@@ -22,15 +22,11 @@ export function searchCities(obj) {
 }
 
 export function searchPictures(obj) {
-    let i;
     let pictureUrl;
-    let keys = Object.keys(obj);
-    let ImageDataKeys = keys.map((i) => {
-        if (obj[i].name === 'ImageData') {
-            return i;
-        }
-    }).filter((i) => i);
-    if (ImageDataKeys.length > 0) {
+    let ImageDataKeys = Object.keys(obj)
+        .map((i) => obj[i].name === 'ImageData' ? i : null)
+        .filter((i) => i);
+    if (ImageDataKeys.length) {
         pictureUrl = obj[ImageDataKeys[0]].attributes.src;
     } else {
         pictureUrl = searchPictures(obj.parent);
