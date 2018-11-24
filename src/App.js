@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ImageGallery from 'react-image-gallery';
 import * as XMLParser from 'react-xml-parser';
 import * as searchModule from './helpers/searchModule';
-
-import searchByMatcher from './helpers/searcher';
 
 import requestUrl from './resources/OnAir_2018_NOV.xml';
 
@@ -16,7 +14,18 @@ class App extends Component {
     this.timeoutIndex = null;
     this.state = {
       searchWord: '',
+      citiesData: {
+        images: [],
+        articles:[],
+      }
     }
+  }
+
+  set data(value) {
+    this.privateData = value;
+  }
+  get data() {
+    return this.privateData;
   }
 
   componentDidMount () {
@@ -31,15 +40,8 @@ class App extends Component {
       searchWord: e.currentTarget.value
     }, () => {
       let arr;
-      this.timeoutIndex = setTimeout(() => {arr = searchByMatcher(this.state.searchWord, this.privateData); console.log(arr)}, 400);
+      this.timeoutIndex = setTimeout(() => {arr = searchModule.searchByMatcher(this.state.searchWord, this.privateData); console.log(arr)}, 400);
     });
-  }
-
-  set data(value) {
-    this.privateData = value;
-  }
-  get data() {
-    return this.privateData;
   }
 
   getXML = () => {
@@ -50,18 +52,33 @@ class App extends Component {
   }
 
   findCities = () => {
-    let test = searchModule.searchCities(this.data);
-    console.dir(test);
+    let citiesData = searchModule.searchCities(this.data);
+    this.setState({
+      ...this.state,
+      citiesData,
+    })
+    console.dir(this.state.citiesData);
   }
   
   reqListener = (e) => {
     let xml = new XMLParser().parseFromString(e.currentTarget.responseText);
     this.data = xml;
+    this.findCities();
+  }
+
+  mapImagesForGalery = () => {
+    return this.state.citiesData.images.map((i) => {
+      return {
+        original: i,
+        thumbnail: i
+      }
+    })
   }
 
   render() {
     return (
       <div className="App">
+        <ImageGallery items={this.mapImagesForGalery()} />
         <header className="App-header">
           <input type='text' value = {this.state.searchWord} onChange = {this.onInputChange} />
           <button onClick={this.findCities}>

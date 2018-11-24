@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 let reg = new RegExp('.*(Белград|Амстердам|Кишинев|Будапешт|Афины|Мурманск).*')
 let result = {
     images: [],
@@ -21,7 +23,15 @@ export function searchCities(obj) {
     return result;
 }
 
-export function searchPictures(obj) {
+export function searchByMatcher(matcher, xml) {
+    let regexp = new RegExp(`.*${matcher}.*`);
+    let foundNodes;
+    foundNodes = walkTheDOM(regexp, xml, searchFunc);
+
+    return foundNodes;
+}
+
+function searchPictures(obj) {
     let pictureUrl;
     let ImageDataKeys = Object.keys(obj)
         .map((i) => obj[i].name === 'ImageData' ? i : null)
@@ -32,4 +42,23 @@ export function searchPictures(obj) {
         pictureUrl = searchPictures(obj.parent);
     }
     return pictureUrl;
+}
+
+function walkTheDOM(matcher, node, seachFunc, foundNodes = []) {
+    foundNodes = seachFunc(matcher, node, foundNodes);
+
+    _.forEach(node.children, (child) => {
+        foundNodes = walkTheDOM(matcher, child, seachFunc, foundNodes);
+    });
+
+    return foundNodes;
+}
+
+
+function searchFunc(matcher, node, foundNodes) {
+    if (node.value.search(matcher) !== -1) {
+        foundNodes.push(node.value);
+    }
+
+    return foundNodes;
 }
