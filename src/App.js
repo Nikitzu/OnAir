@@ -4,10 +4,37 @@ import './App.css';
 import * as XMLParser from 'react-xml-parser';
 import * as searchModule from './helpers/searchModule';
 
+import searchByMatcher from './helpers/searcher';
+
 import requestUrl from './resources/OnAir_2018_NOV.xml';
 
 class App extends Component {
-  privateData;
+
+  constructor(props) {
+    super(props);
+    this.privateData = {};
+    this.timeoutIndex = null;
+    this.state = {
+      searchWord: '',
+    }
+  }
+
+  componentDidMount () {
+    this.getXML();
+  }
+
+  onInputChange = (e) => {
+    if (this.timeoutIndex) {
+      window.clearTimeout(this.timeoutIndex);
+    }
+    this.setState({
+      searchWord: e.currentTarget.value
+    }, () => {
+      let arr;
+      this.timeoutIndex = setTimeout(() => {arr = searchByMatcher(this.state.searchWord, this.privateData); console.log(arr)}, 400);
+    });
+  }
+
   set data(value) {
     this.privateData = value;
   }
@@ -20,7 +47,7 @@ class App extends Component {
     oReq.onload = this.reqListener;
     oReq.open("get", requestUrl, true);
     oReq.send();
-  }  
+  }
 
   findCities = () => {
     let test = searchModule.searchCities(this.data);
@@ -36,24 +63,10 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <button onClick={this.getXML}>
-            Load Data
-          </button>
+          <input type='text' value = {this.state.searchWord} onChange = {this.onInputChange} />
           <button onClick={this.findCities}>
             Find Cities
           </button>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
         </header>
       </div>
     );
