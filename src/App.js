@@ -17,7 +17,8 @@ class App extends Component {
       citiesData: {
         images: [],
         articles:[],
-      }
+      },
+      imagesSrc: [],
     }
   }
 
@@ -64,21 +65,26 @@ class App extends Component {
     let xml = new XMLParser().parseFromString(e.currentTarget.responseText);
     this.data = xml;
     this.findCities();
+    this.mapImagesForGalery();
   }
 
   mapImagesForGalery = () => {
-    return this.state.citiesData.images.map((i) => {
+    let imageSrc = this.state.citiesData.images.map((i) => {
       return {
-        original: '/Users/nikitz/Documents/on-air-app/src/resources' + i,
-        thumbnail: '/Users/nikitz/Documents/on-air-app/src/resources' + i
+        original: 'http://localhost:3000/Users/nikitz/Documents/on-air-app/src' + require('/Users/nikitz/Documents/on-air-app/src/' + i),
+        thumbnail: 'http://localhost:3000/Users/nikitz/Documents/on-air-app/src' + require('/Users/nikitz/Documents/on-air-app/src/' + i),
       }
     })
+    this.setState({
+      ...this.state,
+      imageSrc,
+    });
   }
 
   render() {
     return (
       <div className="App">
-        <ImageGallery items={this.mapImagesForGalery()} />
+        <ImageGallery items={this.state.imageSrc}/>
         <header className="App-header">
           <input type='text' value = {this.state.searchWord} onChange = {this.onInputChange} />
           <button onClick={this.findCities}>
