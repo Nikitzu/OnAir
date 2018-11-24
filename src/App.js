@@ -69,22 +69,22 @@ class App extends Component {
   }
 
   mapImagesForGalery = () => {
-    let imageSrc = this.state.citiesData.images.map((i) => {
+    let imagesSrc = this.state.citiesData.images.map((i) => {
       return {
-        original: 'http://localhost:3000/Users/nikitz/Documents/on-air-app/src' + require('/Users/nikitz/Documents/on-air-app/src/' + i),
-        thumbnail: 'http://localhost:3000/Users/nikitz/Documents/on-air-app/src' + require('/Users/nikitz/Documents/on-air-app/src/' + i),
+        original: require('/Users/nikitz/Documents/on-air-app/src/' + i),
+        thumbnail: require('/Users/nikitz/Documents/on-air-app/src/' + i),
       }
     })
     this.setState({
       ...this.state,
-      imageSrc,
+      imagesSrc,
     });
   }
 
   render() {
     return (
       <div className="App">
-        <ImageGallery items={this.state.imageSrc}/>
+        <ImageGallery items={this.state.imagesSrc}/>
         <header className="App-header">
           <input type='text' value = {this.state.searchWord} onChange = {this.onInputChange} />
           <button onClick={this.findCities}>
