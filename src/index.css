@@ -9,6 +9,11 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: Museo sans cyrl source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@font-face {
+  font-family: 'Museo sans cyrl';
+  src: local('Museosanscyrl500'), url(./fonts/Museosanscyrl500.woff) format('woff');
 }
