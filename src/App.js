@@ -18,6 +18,8 @@ class App extends Component {
     let xmlDoc = parser.parseFromString(this.responseText,"text/xml");
     let xml = new XMLParser().parseFromString(this.responseText);
     let a = parserModule.parse(xmlDoc);
+    console.log(xml);
+    console.log(a);
   }
 
   render() {
