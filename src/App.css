@@ -134,6 +134,16 @@ input {
   color: #4D4D4D
 }
 
+.header-url {
+  text-decoration: none;
+  color: #546BB1
+}
+
+.archive {
+  text-decoration: none;
+  color: white
+}
+
 .descr {
   text-align: left;
   margin: 0 0 94px 100px;

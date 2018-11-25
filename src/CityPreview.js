@@ -23,9 +23,11 @@ class CityPreview extends Component {
                  data-name={this.props.city}
                  onClick={this.props.setActiveCity}
             >
-                <img src={this.props.data.images[0] ? this.props.data.images[0] : './images/OnAir_2018_NOV_img_270.jpg'} alt="city"></img>
-                <div className='city-name'>{this.props.city[0].toUpperCase() + this.props.city.substring(1)}</div>
-                {this.shortArticle()}
+                <div className="city-item">
+                    <img height='500px' width='500px' src={this.props.data.images ? this.props.data.images[0] ? this.props.data.images[0] : './images/OnAir_2018_NOV_img_270.jpg' : this.props.url} alt="city"></img>
+                    <div className='city-name'>{this.props.city[0].toUpperCase() + this.props.city.substring(1)}</div>
+                    {this.shortArticle()}
+                </div>
             </div>
         )
     }

@@ -19,6 +19,7 @@ class App extends Component {
     this.state = {
       searchWord: '',
       citiesData: { },
+      searchResults: [],
     }
   }
 
@@ -61,7 +62,8 @@ class App extends Component {
       window.clearTimeout(this.timeoutIndex);
     }
     this.setState({
-      searchWord: e.currentTarget.value
+      searchWord: e.currentTarget.value,
+      activeCity: e.currentTarget.value.toLowerCase(),
     }, () => {
       let arr;
       this.timeoutIndex = setTimeout(() => {
@@ -133,6 +135,7 @@ class App extends Component {
 
   resetActiveCity = () => {
     this.setState({
+      searchWord: '',
       activeCity: '',
     })
   }
@@ -150,11 +153,15 @@ class App extends Component {
 
           <div className='magazine'>
             <img src='icons_Magazine.png' alt='icon'></img>
-            <span>читать <strong>№ 108</strong> (Ноя 2018)</span>
+            <a className='header-url' target='_blank' href='https://issuu.com/belavia_onair/docs/onair_108_all_issuu'>
+              <span>читать <strong>№ 108</strong> (Ноя 2018)</span>
+            </a>
           </div>
           <div className='winrar'>
             <img src='icons_WinRAR.png' alt='icon'></img>
-            <span>Архив журналов</span>
+            <a className='archive' target='_blank' href='https://www.belaviaonair.by'>
+              <span>Архив журналов</span>
+            </a>
           </div>
         
           <div className="searcher">
@@ -171,11 +178,10 @@ class App extends Component {
         <main>
 
           {this.state.searchWord ?
-            this.renderSearchResults() :
+            this.renderActiveCity() :
             this.state.activeCity ?
             this.renderActiveCity() :
             this.renderMainPage()}
-
         </main>
 
         <footer>
