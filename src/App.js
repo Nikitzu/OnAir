@@ -5,7 +5,7 @@ import CityPreview from './CityPreview';
 import * as XMLParser from 'react-xml-parser';
 import * as searchModule from './helpers/searchModule';
 
-import requestUrl from './resources/OnAir_2018_NOV.xml';
+import requestUrl from './resources/OnAir_2018_NOV_edited.xml';
 class App extends Component {
 
   constructor(props) {
@@ -76,7 +76,7 @@ class App extends Component {
 
           <div className='magazine'>
             <img src='icons_Magazine.png' alt='icon'></img>
-            <spam>читать <strong>№ 108</strong> (Ноя 2018)</spam>
+            <span>читать <strong>№ 108</strong> (Ноя 2018)</span>
           </div>
           <div className='winrar'>
             <img src='icons_WinRAR.png' alt='icon'></img>
@@ -85,7 +85,7 @@ class App extends Component {
         
           <div className="searcher">
             <img src='./icons_Search.png' alt='search'></img>
-            <input type='text' value = {this.state.searchWord} onChange = {this.onInputChange} placeholder='попробуйте поискать "Рим" или "итальянская кухня"'/>
+            <input className="searcherInput" type='text' value={this.state.searchWord} onChange={this.onInputChange} placeholder='попробуйте поискать "Рим" или "итальянская кухня"'/>
           </div>
         </header>
 
@@ -100,13 +100,13 @@ class App extends Component {
           <div className="city-section">
             { Object.keys(this.state.citiesData).map((city, index) => {
               return (<CityPreview 
+                        key={index}
                         city = {city}
                         data = { this.state.citiesData[city] } 
-                        url = { this.state.citiesData[city].images[0].url}
+                        url = { this.state.citiesData[city].images[0] }
                       />)
         }) } 
           </div>
-
           <button className ='button more'>Больше городов</button>
         </main>
 
