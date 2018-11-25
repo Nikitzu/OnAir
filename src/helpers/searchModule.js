@@ -1,37 +1,40 @@
 import _ from 'lodash';
 
-let reg = new RegExp('.*(Белград|Венеция|Рига|Будапешт|Афины|Доминикана).*')
+let reg = new RegExp('.*(белград|венеция|рига|будапешт|афины|доминикана).*')
 
 const result = {
-    'Белград': {
+    'белград': {
         images: [],
         articles:[],
     },
-    'Венеция': {
+    'венеция': {
         images: [],
         articles:[],
     },
-    'Рига': {
+    'рига': {
         images: [],
         articles:[],
     },
-    'Будапешт': {
+    'будапешт': {
         images: [],
         articles:[],
     },
-    'Афины': {
+    'афины': {
         images: [],
         articles:[],
     },
-    'Доминикана': {
+    'доминикана': {
         images: [],
         articles:[],
     },
 };
 
 export function searchCities2(obj) {
-    let res = obj.value.match(reg);
+    let res = obj.value.toLowerCase().match(reg);
     if (res) {
+        res[1] = res[1].toLowerCase();
+        //res[1][0] = res[1][0].toUpperCase();
+
         result[res[1]].articles.push(res[0]);
         
         result[res[1]].images.push('./' + searchImage(obj.parent || obj));

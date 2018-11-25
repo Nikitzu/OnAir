@@ -15,11 +15,10 @@ class CityPreview extends Component {
     }
 
     render() {
-        
         return(
             <div className= "city-item">
                 <img src={this.props.data.images[0]} alt="city"></img>
-                <div className='city-name'>{this.props.city}</div>
+                <div className='city-name'>{this.props.city[0].toUpperCase() + this.props.city.substring(1)}</div>
                 {this.shortArticle()}
             </div>
         )

@@ -68,27 +68,20 @@ class App extends Component {
     });
   }
 
-
-  renderCityPreviews = () => {          
-      return Object.keys(this.state.citiesData).map((city, index) => {
-              return (<CityPreview 
-                        city = {city}
-                        data = { this.state.citiesData[city] } 
-                        url = { this.state.citiesData[index].images[index].url}
-                      />)
-        })
-  }
-
   render() {
     return (
       <div className="App">
 
         <header className="App-header">
 
-          <div className='winrar'>
-            <img src='' alt=''></img>
+          <div className='magazine'>
+            <img src='icons_Magazine.png' alt='icon'></img>
+            <spam>читать <strong>№ 108</strong> (Ноя 2018)</spam>
           </div>
-          <div className='magazine'></div>
+          <div className='winrar'>
+            <img src='icons_WinRAR.png' alt='icon'></img>
+            <span>Архив журналов</span>
+          </div>
         
           <div className="searcher">
             <img src='./icons_Search.png' alt='search'></img>
