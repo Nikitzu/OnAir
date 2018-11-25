@@ -153,13 +153,13 @@ class App extends Component {
 
           <div className='magazine'>
             <img src='icons_Magazine.png' alt='icon'></img>
-            <a className='header-url' target='_blank' href='https://issuu.com/belavia_onair/docs/onair_108_all_issuu'>
+            <a className='header-url' target='_blank' href='https://en.belavia.by/webroot/delivery/images/OnAir_2018_NOV.pdf'>
               <span>читать <strong>№ 108</strong> (Ноя 2018)</span>
             </a>
           </div>
           <div className='winrar'>
             <img src='icons_WinRAR.png' alt='icon'></img>
-            <a className='archive' target='_blank' href='https://www.belaviaonair.by'>
+            <a className='archive' target='_blank' href='https://belavia.by/onair'>
               <span>Архив журналов</span>
             </a>
           </div>
