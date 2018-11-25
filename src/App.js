@@ -68,6 +68,62 @@ class App extends Component {
     });
   }
 
+  setActiveCity = (e) => {
+    this.setState({
+      activeCity: e.currentTarget.attributes.getNamedItem('data-name').value
+    })
+  }
+
+  renderMainPage = () => {
+    return (
+      <React.Fragment>
+        <div className='descr'>Мы интересно пишем про города</div>
+        <div className="city-section">
+          { Object.keys(this.state.citiesData).map((city, index) => {
+            return (<CityPreview
+                    key = {index}
+                    city = {city}
+                      data = { this.state.citiesData[city] }
+                      url = { this.state.citiesData[city].images[0].url}
+                      setActiveCity = {this.setActiveCity}
+                    />)
+          }) }
+        </div>
+
+        <button className ='button more'>Больше городов</button>
+      </React.Fragment>
+
+    );
+  }
+
+  renderActiveCity = () => {
+    const citiesData = this.state.citiesData[this.state.activeCity.toLowerCase()];
+    const articles = citiesData.articles;
+
+    return (
+      <React.Fragment>
+        <div className ='city-header' >{this.state.activeCity[0].toUpperCase() + this.state.activeCity.substring(1)}</div>
+        { articles.map((article, index) => {
+          return (
+            <div key = {index} className='city-articles'>
+
+              { citiesData.images[index] !== citiesData.images[index - 1] &&
+                citiesData.images[index].length >2 &&
+                  (<img className='city-image' src={citiesData.images[index]}></img>)
+              }
+              <div className='city-article'>{ article }</div>
+              </div>
+          )})
+
+        }
+      </React.Fragment>
+    )
+  }
+
+  renderSearchResults = () => {
+    return (<div class='stub'>'We're in progress with this :)'</div>);
+  }
+
   render() {
     return (
       <div className="App">
@@ -85,7 +141,12 @@ class App extends Component {
         
           <div className="searcher">
             <img src='./icons_Search.png' alt='search'></img>
-            <input className="searcherInput" type='text' value={this.state.searchWord} onChange={this.onInputChange} placeholder='попробуйте поискать "Рим" или "итальянская кухня"'/>
+            <input type='text'
+                   className="searcherInput"
+                   value = {this.state.searchWord}
+                   onChange = {this.onInputChange}
+                   placeholder='попробуйте поискать "Рим" или "итальянская кухня"'
+            />
           </div>
         </header>
 
@@ -96,18 +157,12 @@ class App extends Component {
             <span>Места</span>
             <span>События</span>
           </div>
-          <div className='descr'>Мы интересно пишем про города</div>
-          <div className="city-section">
-            { Object.keys(this.state.citiesData).map((city, index) => {
-              return (<CityPreview 
-                        key={index}
-                        city = {city}
-                        data = { this.state.citiesData[city] } 
-                        url = { this.state.citiesData[city].images[0] }
-                      />)
-        }) } 
-          </div>
-          <button className ='button more'>Больше городов</button>
+          {this.state.searchWord ?
+            this.renderSearchResults() :
+            this.state.activeCity ?
+            this.renderActiveCity() :
+            this.renderMainPage()}
+
         </main>
 
         <footer>

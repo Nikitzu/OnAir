@@ -41,6 +41,12 @@
   color: #546BB1;
 }
 
+.magazine:hover {
+  padding: 19px 27px;
+  border: 1px solid #546BB1; 
+  background-color: rgba(255,255,255,0.9);
+}
+
 .winrar, .magazine {
   float: right;
   display: flex;
@@ -58,8 +64,12 @@
   color: white;
 }
 
+.winrar:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
 .searcher {
-  margin-top: 20%;
+  margin-top: 15%;
   width: 80vw;
   margin-left: 20vw;
   display: flex;
@@ -139,7 +149,41 @@ input {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+}
+
+.city-articles {
+  margin: 35px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.city-header {
+  font-size: 36px;
+  font-weight: 900;
+  color: #4D4D4D; 
+  margin: 5px 0;
+}
+
+.city-image {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.city-article {
+  margin-left: 30px;
+  font-size: 14px;
+  color: #4D4D4D;
+  text-align: left;
+}
+
+.stub {
+  margin-bottom: 100px;
+  color: #4D4D4D;
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 200;
 }
 
 .button {
