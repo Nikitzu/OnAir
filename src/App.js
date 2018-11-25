@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
+
 import './App.css';
 import CityPreview from './CityPreview';
 
@@ -77,6 +79,12 @@ class App extends Component {
   renderMainPage = () => {
     return (
       <React.Fragment>
+        <div className="sub-menu">
+          <span className='active'>Города</span>
+          <span>Люди</span>
+          <span>Места</span>
+          <span>События</span>
+        </div>
         <div className='descr'>Мы интересно пишем про города</div>
         <div className="city-section">
           { Object.keys(this.state.citiesData).map((city, index) => {
@@ -102,6 +110,9 @@ class App extends Component {
 
     return (
       <React.Fragment>
+        <div className='breadcrumb'>
+          <span onClick={this.resetActiveCity}>Главная/</span>
+        </div>
         <div className ='city-header' >{this.state.activeCity[0].toUpperCase() + this.state.activeCity.substring(1)}</div>
         { articles.map((article, index) => {
           return (
@@ -120,12 +131,19 @@ class App extends Component {
     )
   }
 
+  resetActiveCity = () => {
+    this.setState({
+      activeCity: '',
+    })
+  }
+
   renderSearchResults = () => {
     return (<div class='stub'>'We're in progress with this :)'</div>);
   }
 
   render() {
     return (
+      <Router>
       <div className="App">
 
         <header className="App-header">
@@ -151,12 +169,7 @@ class App extends Component {
         </header>
 
         <main>
-          <div className="sub-menu">
-            <span className='active'>Города</span>
-            <span>Люди</span>
-            <span>Места</span>
-            <span>События</span>
-          </div>
+
           {this.state.searchWord ?
             this.renderSearchResults() :
             this.state.activeCity ?
@@ -170,6 +183,7 @@ class App extends Component {
         </footer>
 
       </div>
+      </Router>
     );
   }
 }

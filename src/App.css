@@ -204,3 +204,16 @@ input {
   color: #4D4D4D;
   background-color: #7386bf;
 }
+
+.breadcrumb {
+  margin: 30px 80px;
+  font-size: 36px;
+  cursor: pointer;  
+  font-weight: 100;
+  color: #4D4D4D;
+  text-align: left;
+}
+
+.breadcrumb:hover {
+  font-weight: 200;
+}

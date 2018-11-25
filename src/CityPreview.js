@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
 import './CityPreview.css';
 
 class CityPreview extends Component {
@@ -18,7 +19,7 @@ class CityPreview extends Component {
 
     render() {
         return(
-            <div className= "city-item"
+           <div className= "city-item"
                  data-name={this.props.city}
                  onClick={this.props.setActiveCity}
             >
